@@ -206,6 +206,27 @@ nav {
     transition: all 0.2s ease-in-out;
 }
 
+.hero-social-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.hero-social-links a {
+    color: var(--white);
+    background-color: var(--secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.hero-social-links a:hover {
+    background-color: var(--accent);
+}
+
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -340,7 +361,7 @@ footer {
     position: absolute;
     left: 0;
     font-size: 1.5rem;
-    color: var(--secondary);
+    color: var (--secondary);
 }
 
 .mission-footer {
@@ -370,4 +391,35 @@ footer {
 .step h3 {
     color: var(--secondary);
     margin-bottom: 1rem;
+}
+
+#social-links {
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: var(--background);
+}
+
+#social-links h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text);
+}
+
+.social-links-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-links-container a {
+    color: var(--white);
+    background-color: var(--secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.social-links-container a:hover {
+    background-color: var(--accent);
 }
