@@ -263,22 +263,26 @@ nav {
 
 .tokenomics-container {
     background-color: rgba(255, 255, 255, 0.85);
-    padding: 3rem;
+    padding: 4rem;  /* Increased from 3rem */
     border-radius: 10px;
-    max-width: 1000px;
+    max-width: 1200px;  /* Increased from 1000px */
     margin: 2rem auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    gap: 3rem;  /* Increased from 2rem */
 }
 
 .tokenomics-card {
     background-color: var(--white);
-    padding: 1.5rem;
+    padding: 2rem;  /* Increased from 1.5rem */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 150px;  /* Added minimum height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .tokenomics-card:hover {
