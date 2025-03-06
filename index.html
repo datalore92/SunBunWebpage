@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$SBUN - Sun Bunny</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">$SBUN</div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#tokenomics">Tokenomics</a>
+                <a href="#community">Community</a>
+            </div>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Sun Bunny</h1>
+        <p>Hop into the future of decentralized finance</p>
+        <img src="backgroundless.png" alt="Sun Bunny Logo" class="hero-image">
+        <a href="#" class="cta-button">Get Your $SBUN Before It Hops Away!</a>
+    </section>
+
+    <section id="features">
+        <h2>🚀 Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🐰 Community Driven</h3>
+                <p>SUNBUN isn’t just a token—it’s a movement! Our passionate community of Sun Bunnies is at the heart of everything we do. From fun memes to real-world initiatives, every holder plays a role in shaping the future of $SBUN. Join us on Telegram and X (Twitter) to be part of the conversation, vote on decisions, and help spread the sunshine!</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔒 Secure & Transparent</h3>
+                <p>Built on the Tron blockchain, SUNBUN leverages one of the most efficient and reliable decentralized networks in the world. With immutable smart contracts and a locked liquidity pool, our community can trade with confidence, knowing their investments are safe from rug pulls and manipulations.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💰 Ultra-Low Fees</h3>
+                <p>Tron’s high-speed blockchain ensures near-instant transactions with fraction-of-a-cent fees, making it cheaper and faster than Ethereum and many other networks. No more wasting money on gas fees—every Sun Bunny gets to keep more of their hard-earned tokens!</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contract">
+        <h2>Contract Address</h2>
+        <div class="contract-container">
+            <p class="contract-address">TBA</p>
+            <button class="copy-button">Copy Address</button>
+        </div>
+        <div class="slogan">
+            <h2>SUNBUN TO THE SUN! 🚀</h2>
+        </div>
+    </section>
+
+    <section id="mission">
+        <h2>Our Mission</h2>
+        <div class="mission-container">
+            <p>SUNBUN is more than just a memecoin – we're a community-driven movement with a purpose! Our mission is to:</p>
+            <ul>
+                <li>Empower and expand the TRON community through fun, engaging memes and initiatives</li>
+                <li>Support the success of TRON under the visionary leadership of Justin SUN</li>
+                <li>Become the first bunny-themed token on TRON to achieve a million-dollar market cap</li>
+                <li>Foster a vibrant, inclusive community where every voice is heard and every meme matters</li>
+                <li>Support animals in need and contribute to animal shelters through our community-driven charity initiatives</li>
+            </ul>
+            <p class="mission-footer">It's only one giant leap away! Let's grow together, make SUNBUN the top bunny in the crypto world, and make a positive impact on animal welfare!</p>
+        </div>
+    </section>
+
+    <section id="how-to-buy">
+        <h2>How to Buy $SBUN</h2>
+        <div class="steps-container">
+            <div class="step">
+                <h3>1. Get TronLink Pro</h3>
+                <p>Download and install TronLink Pro wallet</p>
+            </div>
+            <div class="step">
+                <h3>2. Add TRX</h3>
+                <p>Add TRX to your wallet</p>
+            </div>
+            <div class="step">
+                <h3>3. Connect Wallet</h3>
+                <p>Go to sunpump.meme and connect your TronLink wallet</p>
+            </div>
+            <div class="step">
+                <h3>4. Swap</h3>
+                <p>Swap TRX for SUNBUN</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tokenomics">
+        <h2>Tokenomics</h2>
+        <div class="tokenomics-container">
+            <div class="tokenomics-item">
+                <h3>Total Supply</h3>
+                <p>1,000,000,000 $SBUN</p>
+            </div>
+            <div class="tokenomics-item">
+                <h3>Marketing</h3>
+                <p>5%</p>
+            </div>
+            <div class="tokenomics-item">
+                <h3>Liquidity Pool</h3>
+                <p>50%</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://t.me/sunbuntoken" target="_blank">Telegram</a>
+            <a href="https://x.com/sunbuntoken" target="_blank">X (Twitter)</a>
+        </div>
+        <p>&copy; 2024 Sun Bunny. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelector(".copy-button").addEventListener("click", function() {
+            navigator.clipboard.writeText("YOUR_CONTRACT_ADDRESS_HERE");
+            alert("Contract address copied to clipboard!");
+        });
+
+        // Hamburger menu functionality
+        const hamburger = document.querySelector(".hamburger-menu");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("open");
+        });
+    </script>
+</body>
+</html>
