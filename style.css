@@ -256,20 +256,24 @@ nav {
 }
 
 .tokenomics-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.tokenomics-item {
-    background-color: rgba(255, 196, 77, 0.85);
+    background-color: rgba(255, 255, 255, 0.85);
     padding: 2rem;
     border-radius: 10px;
-    text-align: center;
-    color: var(--text);
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.tokenomics-container ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+}
+
+.tokenomics-container li {
+    margin: 1rem 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 section {
