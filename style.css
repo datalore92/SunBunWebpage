@@ -257,23 +257,41 @@ nav {
 
 .tokenomics-container {
     background-color: rgba(255, 255, 255, 0.85);
-    padding: 2rem;
-    border-radius: 10px;
-    max-width: 800px;
+    padding: 3rem;
+    border-radius: 15px;
+    max-width: 900px;
     margin: 0 auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .tokenomics-container ul {
-    list-style-type: disc;
-    padding-left: 1.5rem;
+    list-style-type: none;
+    padding: 0;
 }
 
 .tokenomics-container li {
-    margin: 1rem 0;
-    font-size: 1.1rem;
-    line-height: 1.6;
+    margin: 1.5rem 0;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    padding-left: 2.5rem;
+    position: relative;
+}
+
+.tokenomics-container li:before {
+    content: "🌞";  /* Alternating between sun and rabbit emoji */
+    position: absolute;
+    left: 0;
+    font-size: 1.8rem;
+}
+
+.tokenomics-container li:nth-child(even):before {
+    content: "🐰";
+}
+
+#tokenomics h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    color: var(--text);
 }
 
 section {
