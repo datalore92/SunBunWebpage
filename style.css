@@ -242,6 +242,12 @@ nav {
     border-radius: 10px;
     text-align: left;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .feature-card h3 {
@@ -260,7 +266,7 @@ nav {
     padding: 3rem;
     border-radius: 10px;
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 2rem auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -272,11 +278,12 @@ nav {
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .tokenomics-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .tokenomics-card h3 {
@@ -299,15 +306,26 @@ nav {
 }
 
 #tokenomics h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2.5rem;
-    color: var(--text);
-    position: relative;
-    display: inline-block;
-    padding-bottom: 0.5rem;
+    margin-bottom: 3rem;
 }
 
-#tokenomics h2::after {
+section {
+    padding: 6rem 2rem;  /* Increased padding for better spacing */
+    text-align: center;  /* Center all section content by default */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 3rem;  /* Increased margin */
+    color: var(--text);
+    font-size: 2.5rem;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.8rem;
+}
+
+/* Add decorative underline to all section headings */
+h2::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -319,14 +337,38 @@ nav {
     border-radius: 2px;
 }
 
-section {
-    padding: 4rem 2rem;
+/* Add some depth to cards */
+.feature-card,
+.tokenomics-card,
+.step,
+.mission-container {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: var (--text);
+.feature-card:hover,
+.tokenomics-card:hover,
+.step:hover,
+.mission-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Improve container spacing */
+.feature-grid,
+.tokenomics-container,
+.steps-container {
+    margin-top: 2rem;
+}
+
+/* Add section separators */
+section:not(:last-child)::after {
+    content: '';
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--secondary), transparent);
+    margin: 4rem auto 0;
 }
 
 footer {
@@ -381,6 +423,12 @@ footer {
     margin: 0 auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: left;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mission-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .mission-container p {
@@ -425,7 +473,7 @@ footer {
     gap: 2rem;
     padding: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 2rem auto;
 }
 
 .step {
@@ -433,6 +481,12 @@ footer {
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .step h3 {
