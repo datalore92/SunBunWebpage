@@ -1,4 +1,5 @@
 const SBUN_CONTRACT_ADDRESS = 'TPgrjm95VJFNfY3bc6TC9jTCMws3UMWdPy';
+const TOKEN_DECIMALS = 6;  // Add this line
 
 class TokenDApp {
     constructor() {
@@ -56,7 +57,7 @@ class TokenDApp {
         const address = this.tronWeb.defaultAddress.base58;
         const balance = await this.contract.balanceOf(address).call();
         document.getElementById('token-balance').textContent = 
-            `SBUN Balance: ${this.tronWeb.fromSun(balance)}`;
+            `SBUN Balance: ${balance / Math.pow(10, TOKEN_DECIMALS)}`;  // Modified this line
     }
 
     async transfer() {
@@ -65,9 +66,12 @@ class TokenDApp {
         const amount = document.getElementById('amount').value;
         
         try {
+            // Convert the amount to the correct decimal places
+            const amountWithDecimals = Math.floor(amount * Math.pow(10, TOKEN_DECIMALS));
+            
             const tx = await this.contract.transfer(
                 recipient,
-                this.tronWeb.toSun(amount)
+                amountWithDecimals  // Modified this line
             ).send();
             alert('Transfer successful!');
             await this.updateBalance();
