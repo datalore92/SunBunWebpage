@@ -6,8 +6,7 @@ class TokenDApp {
         this.tronWeb = null;
         this.contract = null;
         this.currentFilter = 'all';
-        this.tronGridApiKey = 'your-api-key-here'; // Get this from https://www.trongrid.io/
-        this.apiBaseUrl = 'https://nile.trongrid.io'; // Add this line for Nile testnet
+        this.apiBaseUrl = 'https://nile.trongrid.io'; // Nile testnet URL
         this.init();
     }
 
@@ -42,17 +41,10 @@ class TokenDApp {
             const listElement = document.querySelector('.transactions-list');
             listElement.innerHTML = '<p>Loading transactions...</p>';
 
-            const options = {
-                headers: {
-                    'TRON-PRO-API-KEY': this.tronGridApiKey,
-                    'Accept': 'application/json'
-                }
-            };
-
-            // Updated URLs for Nile testnet
+            // Get both incoming and outgoing transactions
             const [incomingTx, outgoingTx] = await Promise.all([
-                fetch(`${this.apiBaseUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_to=true`, options),
-                fetch(`${this.apiBaseUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_from=true`, options)
+                fetch(`${this.apiBaseUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_to=true`),
+                fetch(`${this.apiBaseUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_from=true`)
             ]);
 
             // Add debug logging
