@@ -6,6 +6,7 @@ class TokenDApp {
         this.tronWeb = null;
         this.contract = null;
         this.currentFilter = 'all';
+        this.tronGridApiKey = 'your-api-key-here'; // Get this from https://www.trongrid.io/
         this.init();
     }
 
@@ -37,23 +38,55 @@ class TokenDApp {
 
     async getTransactionHistory(address, limit = 50) {
         try {
-            const response = await fetch(
-                `https://api.trongrid.io/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}`
-            );
-            const data = await response.json();
-            return data.data || [];
+            const listElement = document.querySelector('.transactions-list');
+            listElement.innerHTML = '<p>Loading transactions...</p>';
+
+            const options = {
+                headers: {
+                    'TRON-PRO-API-KEY': this.tronGridApiKey,
+                    'Accept': 'application/json'
+                }
+            };
+
+            // Get both incoming and outgoing transactions
+            const [incomingTx, outgoingTx] = await Promise.all([
+                fetch(`https://api.trongrid.io/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_to=true`, options),
+                fetch(`https://api.trongrid.io/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_from=true`, options)
+            ]);
+
+            const incomingData = await incomingTx.json();
+            const outgoingData = await outgoingTx.json();
+
+            // Combine and sort transactions
+            const allTx = [...(incomingData.data || []), ...(outgoingData.data || [])]
+                .sort((a, b) => b.block_timestamp - a.block_timestamp);
+
+            if (allTx.length === 0) {
+                listElement.innerHTML = '<p>No transactions found</p>';
+                return [];
+            }
+
+            return allTx;
         } catch (err) {
             console.error('Error fetching transaction history:', err);
+            document.querySelector('.transactions-list').innerHTML = 
+                `<p>Error loading transactions: ${err.message}</p>`;
             return [];
         }
     }
 
     async updateTransactionHistory() {
-        if (!this.tronWeb?.defaultAddress?.base58) return;
+        if (!this.tronWeb?.defaultAddress?.base58) {
+            document.querySelector('.transactions-list').innerHTML = 
+                '<p>Please connect your wallet first</p>';
+            return;
+        }
         
         const address = this.tronWeb.defaultAddress.base58;
         const transactions = await this.getTransactionHistory(address);
         const listElement = document.querySelector('.transactions-list');
+        
+        if (!transactions.length) return; // Error message already shown in getTransactionHistory
         
         listElement.innerHTML = '';
         
@@ -77,7 +110,7 @@ class TokenDApp {
                         ${isSent ? '↑ Sent' : '↓ Received'}
                     </div>
                     <div class="transaction-details">
-                        <div>${isSent ? 'To' : 'From'}: ${isSent ? tx.to : tx.from}</div>
+                        <div>${isSent ? 'To' : 'From'}: ${this.shortenAddress(isSent ? tx.to : tx.from)}</div>
                         <div class="transaction-date">${date}</div>
                     </div>
                     <div class="transaction-amount">
@@ -87,6 +120,10 @@ class TokenDApp {
                 
                 listElement.appendChild(element);
             });
+    }
+
+    shortenAddress(address) {
+        return `${address.slice(0, 6)}...${address.slice(-4)}`;
     }
 
     filterTransaction(tx) {
