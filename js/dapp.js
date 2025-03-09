@@ -1,4 +1,4 @@
-const SBUN_CONTRACT_ADDRESS = 'YOUR_TOKEN_CONTRACT_ADDRESS';
+const SBUN_CONTRACT_ADDRESS = 'TPgrjm95VJFNfY3bc6TC9jTCMws3UMWdPy';
 
 class TokenDApp {
     constructor() {
