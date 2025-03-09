@@ -57,9 +57,20 @@ class TokenDApp {
         const address = this.tronWeb.defaultAddress.base58;
         try {
             const balance = await this.contract.balanceOf(address).call();
-            const formattedBalance = balance / Math.pow(10, TOKEN_DECIMALS);
+            // Convert from BigNumber to string first
+            const balanceString = balance.toString();
+            // Insert decimal point in the correct position
+            const decimalPos = balanceString.length - TOKEN_DECIMALS;
+            let formattedBalance;
+            if (decimalPos <= 0) {
+                formattedBalance = "0." + "0".repeat(-decimalPos) + balanceString;
+            } else {
+                formattedBalance = balanceString.slice(0, decimalPos) + "." + balanceString.slice(decimalPos);
+            }
+            // Remove trailing zeros and decimal if whole number
+            formattedBalance = parseFloat(formattedBalance).toString();
             document.getElementById('token-balance').textContent = 
-                `SBUN Balance: ${formattedBalance.toLocaleString()}`;
+                `SBUN Balance: ${formattedBalance}`;
         } catch (err) {
             console.error('Error getting balance:', err);
         }
@@ -71,12 +82,14 @@ class TokenDApp {
         const amount = document.getElementById('amount').value;
         
         try {
-            // Convert the amount considering 18 decimals
-            const amountInWei = this.tronWeb.toBigNumber(amount).times(Math.pow(10, TOKEN_DECIMALS));
+            // Convert amount to raw token value (considering 18 decimals)
+            const rawAmount = this.tronWeb.toBigNumber(amount)
+                .multipliedBy(this.tronWeb.toBigNumber(10).pow(TOKEN_DECIMALS))
+                .toString();
             
             const tx = await this.contract.transfer(
                 recipient,
-                amountInWei.toString()  // Convert BigNumber to string
+                rawAmount
             ).send();
             alert('Transfer successful!');
             await this.updateBalance();
