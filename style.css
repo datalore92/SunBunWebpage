@@ -148,6 +148,11 @@ nav {
     footer {
         padding: 1.5rem;
     }
+
+    .transaction-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
 }
 
 .hero {
@@ -582,4 +587,85 @@ footer {
     background: #ccc;
     cursor: not-allowed;
     transform: none;
+}
+
+/* Transaction History Styles */
+#transaction-history {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--secondary);
+}
+
+#transaction-history h3 {
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+.transaction-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+
+.filter-btn {
+    background: var(--white);
+    color: var(--text);
+    border: 1px solid var(--secondary);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn.active {
+    background: var(--secondary);
+    color: var(--white);
+}
+
+.transactions-list {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 1rem;
+    background: var(--white);
+    border-radius: 5px;
+}
+
+.transaction-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    align-items: center;
+}
+
+.transaction-item:last-child {
+    border-bottom: none;
+}
+
+.transaction-type {
+    font-weight: bold;
+}
+
+.transaction-type.sent {
+    color: #ff4444;
+}
+
+.transaction-type.received {
+    color: #00C851;
+}
+
+.transaction-details {
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.transaction-amount {
+    font-weight: bold;
+}
+
+.transaction-date {
+    color: #666;
+    font-size: 0.8rem;
 }

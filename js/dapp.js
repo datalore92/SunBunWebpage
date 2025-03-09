@@ -5,6 +5,7 @@ class TokenDApp {
     constructor() {
         this.tronWeb = null;
         this.contract = null;
+        this.currentFilter = 'all';
         this.init();
     }
 
@@ -13,11 +14,99 @@ class TokenDApp {
         if (window.tronLink?.ready) {
             await this.connectWallet();
         }
+        this.setupTransactionFilters();
     }
 
     setupEventListeners() {
         document.getElementById('connect-wallet').addEventListener('click', () => this.connectWallet());
         document.getElementById('transfer').addEventListener('click', () => this.transfer());
+        window.addEventListener('scroll', () => this.handleTransactionScroll());
+    }
+
+    setupTransactionFilters() {
+        const filters = document.querySelectorAll('.filter-btn');
+        filters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filters.forEach(f => f.classList.remove('active'));
+                btn.classList.add('active');
+                this.currentFilter = btn.dataset.type;
+                this.updateTransactionHistory();
+            });
+        });
+    }
+
+    async getTransactionHistory(address, limit = 50) {
+        try {
+            const response = await fetch(
+                `https://api.trongrid.io/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}`
+            );
+            const data = await response.json();
+            return data.data || [];
+        } catch (err) {
+            console.error('Error fetching transaction history:', err);
+            return [];
+        }
+    }
+
+    async updateTransactionHistory() {
+        if (!this.tronWeb?.defaultAddress?.base58) return;
+        
+        const address = this.tronWeb.defaultAddress.base58;
+        const transactions = await this.getTransactionHistory(address);
+        const listElement = document.querySelector('.transactions-list');
+        
+        listElement.innerHTML = '';
+        
+        transactions
+            .filter(tx => this.filterTransaction(tx))
+            .forEach(tx => {
+                const isSent = tx.from === address;
+                if (this.currentFilter !== 'all' && 
+                    ((this.currentFilter === 'sent' && !isSent) || 
+                     (this.currentFilter === 'received' && isSent))) {
+                    return;
+                }
+
+                const amount = this.formatAmount(tx.value);
+                const date = new Date(tx.block_timestamp).toLocaleString();
+                
+                const element = document.createElement('div');
+                element.className = 'transaction-item';
+                element.innerHTML = `
+                    <div class="transaction-type ${isSent ? 'sent' : 'received'}">
+                        ${isSent ? '↑ Sent' : '↓ Received'}
+                    </div>
+                    <div class="transaction-details">
+                        <div>${isSent ? 'To' : 'From'}: ${isSent ? tx.to : tx.from}</div>
+                        <div class="transaction-date">${date}</div>
+                    </div>
+                    <div class="transaction-amount">
+                        ${isSent ? '-' : '+'} ${amount} SBUN
+                    </div>
+                `;
+                
+                listElement.appendChild(element);
+            });
+    }
+
+    filterTransaction(tx) {
+        const address = this.tronWeb.defaultAddress.base58;
+        switch(this.currentFilter) {
+            case 'sent':
+                return tx.from === address;
+            case 'received':
+                return tx.to === address;
+            default:
+                return true;
+        }
+    }
+
+    formatAmount(value) {
+        return (parseFloat(value) / Math.pow(10, TOKEN_DECIMALS)).toFixed(2);
+    }
+
+    handleTransactionScroll() {
+        // Add infinite scroll logic here if needed
     }
 
     async connectWallet() {
@@ -42,6 +131,7 @@ class TokenDApp {
             
             await this.loadContract();
             await this.updateBalance();
+            await this.updateTransactionHistory();
         } catch (err) {
             console.error('Connection error:', err);
             document.getElementById('wallet-address').textContent = `Error: ${err.message}`;
@@ -93,6 +183,7 @@ class TokenDApp {
             ).send();
             alert('Transfer successful!');
             await this.updateBalance();
+            await this.updateTransactionHistory();
         } catch (err) {
             alert('Transfer failed: ' + err.message);
         }

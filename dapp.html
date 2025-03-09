@@ -36,6 +36,15 @@
                     <input type="number" id="amount" placeholder="Amount">
                     <button id="transfer" class="cta-button">Transfer $SBUN</button>
                 </div>
+                <div id="transaction-history">
+                    <h3>Transaction History</h3>
+                    <div class="transaction-filters">
+                        <button class="filter-btn active" data-type="all">All</button>
+                        <button class="filter-btn" data-type="sent">Sent</button>
+                        <button class="filter-btn" data-type="received">Received</button>
+                    </div>
+                    <div class="transactions-list"></div>
+                </div>
             </div>
         </div>
     </section>
