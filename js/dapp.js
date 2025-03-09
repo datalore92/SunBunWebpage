@@ -7,6 +7,7 @@ class TokenDApp {
         this.contract = null;
         this.currentFilter = 'all';
         this.tronGridApiKey = 'your-api-key-here'; // Get this from https://www.trongrid.io/
+        this.apiBaseUrl = 'https://nile.trongrid.io'; // Add this line for Nile testnet
         this.init();
     }
 
@@ -48,11 +49,15 @@ class TokenDApp {
                 }
             };
 
-            // Get both incoming and outgoing transactions
+            // Updated URLs for Nile testnet
             const [incomingTx, outgoingTx] = await Promise.all([
-                fetch(`https://api.trongrid.io/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_to=true`, options),
-                fetch(`https://api.trongrid.io/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_from=true`, options)
+                fetch(`${this.apiBaseUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_to=true`, options),
+                fetch(`${this.apiBaseUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_from=true`, options)
             ]);
+
+            // Add debug logging
+            console.log('Incoming response:', await incomingTx.clone().json());
+            console.log('Outgoing response:', await outgoingTx.clone().json());
 
             const incomingData = await incomingTx.json();
             const outgoingData = await outgoingTx.json();
