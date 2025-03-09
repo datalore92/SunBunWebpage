@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$SBUN - Token dApp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">$SBUN</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#features">Features</a>
+                <a href="#tokenomics">Tokenomics</a>
+                <a href="#social-links">Community</a>
+            </div>
+            <div class="hamburger-menu">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="dapp-section">
+        <div class="container">
+            <h2>Token Interface</h2>
+            <div class="feature-card">
+                <div id="wallet-info">
+                    <button id="connect-wallet" class="cta-button">Connect TronLink</button>
+                    <p id="wallet-address" class="status-text"></p>
+                    <p id="token-balance" class="status-text"></p>
+                </div>
+                <div id="transfer-form">
+                    <input type="text" id="recipient" placeholder="Recipient Address">
+                    <input type="number" id="amount" placeholder="Amount">
+                    <button id="transfer" class="cta-button">Transfer $SBUN</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://t.me/sunbunnyTRON" target="_blank">Telegram</a>
+            <a href="https://x.com/sbunTRX" target="_blank">X (Twitter)</a>
+        </div>
+        <p>&copy; 2024 SunBunny. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="./js/dapp.js"></script>
+    <script src="./js/menu.js"></script>
+</body>
+</html>

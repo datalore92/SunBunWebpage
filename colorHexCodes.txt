@@ -1,6 +1,0 @@
-Golden Yellow (#FFC44D) 
-Warm Orange (#FF9C33) 
-Soft Cream (#FFF2D1) 
-Blush Pink (#FFA07A) 
-Bright White (#FFFFFF) 
-Deep Brown (#5A2D0C)
