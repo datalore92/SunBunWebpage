@@ -1,5 +1,5 @@
 const SBUN_CONTRACT_ADDRESS = 'TPgrjm95VJFNfY3bc6TC9jTCMws3UMWdPy';
-const TOKEN_DECIMALS = 6;  // Add this line
+const TOKEN_DECIMALS = 18;  // Changed from 6 to 18
 
 class TokenDApp {
     constructor() {
@@ -55,9 +55,14 @@ class TokenDApp {
     async updateBalance() {
         if (!this.contract) return;
         const address = this.tronWeb.defaultAddress.base58;
-        const balance = await this.contract.balanceOf(address).call();
-        document.getElementById('token-balance').textContent = 
-            `SBUN Balance: ${balance / Math.pow(10, TOKEN_DECIMALS)}`;  // Modified this line
+        try {
+            const balance = await this.contract.balanceOf(address).call();
+            const formattedBalance = balance / Math.pow(10, TOKEN_DECIMALS);
+            document.getElementById('token-balance').textContent = 
+                `SBUN Balance: ${formattedBalance.toLocaleString()}`;
+        } catch (err) {
+            console.error('Error getting balance:', err);
+        }
     }
 
     async transfer() {
@@ -66,12 +71,12 @@ class TokenDApp {
         const amount = document.getElementById('amount').value;
         
         try {
-            // Convert the amount to the correct decimal places
-            const amountWithDecimals = Math.floor(amount * Math.pow(10, TOKEN_DECIMALS));
+            // Convert the amount considering 18 decimals
+            const amountInWei = this.tronWeb.toBigNumber(amount).times(Math.pow(10, TOKEN_DECIMALS));
             
             const tx = await this.contract.transfer(
                 recipient,
-                amountWithDecimals  // Modified this line
+                amountInWei.toString()  // Convert BigNumber to string
             ).send();
             alert('Transfer successful!');
             await this.updateBalance();
