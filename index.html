@@ -11,15 +11,7 @@
         <nav>
             <div class="logo">$SBUN</div>
             <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#tokenomics">Tokenomics</a>
-                <a href="#social-links">Community</a>
                 <a href="dapp.html">dApp</a>
-            </div>
-            <div class="hamburger-menu">
-                <span></span>
-                <span></span>
-                <span></span>
             </div>
         </nav>
     </header>
@@ -147,14 +139,6 @@
         document.querySelector(".copy-button").addEventListener("click", function() {
             navigator.clipboard.writeText("YOUR_CONTRACT_ADDRESS_HERE");
             alert("Contract address copied to clipboard!");
-        });
-
-        // Hamburger menu functionality
-        const hamburger = document.querySelector(".hamburger-menu");
-        const navLinks = document.querySelector(".nav-links");
-
-        hamburger.addEventListener("click", () => {
-            navLinks.classList.toggle("open");
         });
     </script>
 </body>
