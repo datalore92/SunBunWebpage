@@ -12,6 +12,10 @@ class TokenDApp {
     }
 
     async init() {
+        // Update network display
+        document.getElementById('network-name').textContent = this.network.name;
+        document.querySelector('.network-indicator').classList.add(CURRENT_NETWORK);
+        
         this.setupEventListeners();
         if (window.tronLink?.ready) {
             await this.connectWallet();
