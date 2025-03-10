@@ -1,4 +1,5 @@
-const SBUN_CONTRACT_ADDRESS = 'TPgrjm95VJFNfY3bc6TC9jTCMws3UMWdPy';
+import { NETWORKS, CURRENT_NETWORK } from './config.js';
+
 const TOKEN_DECIMALS = 18;  // Changed from 6 to 18
 
 class TokenDApp {
@@ -6,7 +7,7 @@ class TokenDApp {
         this.tronWeb = null;
         this.contract = null;
         this.currentFilter = 'all';
-        this.apiBaseUrl = 'https://nile.trongrid.io'; // Nile testnet URL
+        this.network = NETWORKS[CURRENT_NETWORK];
         this.init();
     }
 
@@ -41,10 +42,12 @@ class TokenDApp {
             const listElement = document.querySelector('.transactions-list');
             listElement.innerHTML = '<p>Loading transactions...</p>';
 
-            // Get both incoming and outgoing transactions
+            // Use network configuration
             const [incomingTx, outgoingTx] = await Promise.all([
-                fetch(`${this.apiBaseUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_to=true`),
-                fetch(`${this.apiBaseUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${SBUN_CONTRACT_ADDRESS}&only_from=true`)
+                fetch(`${this.network.apiUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${this.network.contractAddress}&only_to=true`, 
+                    { headers: this.network.headers }),
+                fetch(`${this.network.apiUrl}/v1/accounts/${address}/transactions/trc20?limit=${limit}&contract_address=${this.network.contractAddress}&only_from=true`, 
+                    { headers: this.network.headers })
             ]);
 
             // Add debug logging
@@ -173,7 +176,7 @@ class TokenDApp {
     }
 
     async loadContract() {
-        this.contract = await this.tronWeb.contract().at(SBUN_CONTRACT_ADDRESS);
+        this.contract = await this.tronWeb.contract().at(this.network.contractAddress);
     }
 
     async updateBalance() {

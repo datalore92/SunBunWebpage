@@ -669,3 +669,22 @@ footer {
     color: #666;
     font-size: 0.8rem;
 }
+
+.network-indicator {
+    background: var(--secondary);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+/* For testnet */
+.network-indicator.testnet {
+    background: #ff9800;
+}
+
+/* For mainnet */
+.network-indicator.mainnet {
+    background: #4caf50;
+}
