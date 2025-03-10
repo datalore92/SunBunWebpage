@@ -8,6 +8,7 @@ class TokenDApp {
         this.contract = null;
         this.currentFilter = 'all';
         this.network = NETWORKS[CURRENT_NETWORK];
+        this.updateInterval = null; // Add this line
         this.init();
     }
 
@@ -173,9 +174,31 @@ class TokenDApp {
             await this.loadContract();
             await this.updateBalance();
             await this.updateTransactionHistory();
+
+            // Start periodic updates after successful connection
+            this.startPeriodicUpdates();
         } catch (err) {
             console.error('Connection error:', err);
             document.getElementById('wallet-address').textContent = `Error: ${err.message}`;
+            this.stopPeriodicUpdates(); // Stop updates if connection fails
+        }
+    }
+
+    // Add these new methods
+    startPeriodicUpdates() {
+        // Update immediately
+        this.updateTransactionHistory();
+        
+        // Then update every 5 seconds instead of 30
+        this.updateInterval = setInterval(() => {
+            this.updateTransactionHistory();
+        }, 5000); // Changed from 30000 to 5000
+    }
+
+    stopPeriodicUpdates() {
+        if (this.updateInterval) {
+            clearInterval(this.updateInterval);
+            this.updateInterval = null;
         }
     }
 
