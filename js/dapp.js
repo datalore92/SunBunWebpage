@@ -119,7 +119,7 @@ class TokenDApp {
                         <div class="transaction-date">${date}</div>
                     </div>
                     <div class="transaction-amount">
-                        ${isSent ? '-' : '+'} ${amount} SBUN
+                        ${isSent ? '-' : '+'} ${amount} $SBUN
                     </div>
                 `;
                 
@@ -224,7 +224,7 @@ class TokenDApp {
             // Remove trailing zeros and decimal if whole number
             formattedBalance = parseFloat(formattedBalance).toString();
             document.getElementById('token-balance').textContent = 
-                `SBUN Balance: ${formattedBalance}`;
+                `$SBUN Balance: ${formattedBalance}`;
         } catch (err) {
             console.error('Error getting balance:', err);
         }
