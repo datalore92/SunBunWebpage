@@ -12,7 +12,7 @@ const NETWORKS = {
     testnet: {
         name: 'Nile Testnet',
         apiUrl: 'https://nile.trongrid.io',
-        contractAddress: 'TPgrjm95VJFNfY3bc6TC9jTCMws3UMWdPy',  // Testnet contract address
+        contractAddress: 'TPbVi8q5ztLeEbmrPPrmhB1B3Q5iVJ5ahd',  // Updated contract address
         apiKey: null, // Not needed for testnet
         headers: {
             'Accept': 'application/json'
